@@ -32,13 +32,13 @@ app.post("/product", (request, response) => {
   console.log("irlee");
 
   const { productName, category, price } = request.body;
-  // console.log("price", price);
+  console.log("price", price, productName, category);
 
   fs.readFile("./data/products.json", "utf-8", (readError, data) => {
     if (readError) {
       response.json({
         success: false,
-        error: error,
+        error: readError,
       });
     }
 
