@@ -46,7 +46,7 @@ export const CreateCard = ({ setProducts }) => {
   return (
     <>
       <button
-        className="btn"
+        className="btn btn-outline btn-info"
         onClick={() => document.getElementById("my_modal_1").showModal()}
       >
         Create product

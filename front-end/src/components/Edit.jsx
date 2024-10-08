@@ -10,7 +10,7 @@ export const EditModal = ({
     setSelectedProduct(product);
   };
   return (
-    <>
+    <main className="">
       <button className="btn" onClick={handleModalClick}>
         Edit
       </button>
@@ -22,7 +22,7 @@ export const EditModal = ({
               name="productName"
               onChange={handleInputChange}
               type="text"
-              placeholder="Type here"
+              placeholder="ProductName"
               className="w-full input input-bordered"
               value={selectedProduct?.productName}
             />
@@ -30,7 +30,7 @@ export const EditModal = ({
               name="category"
               onChange={handleInputChange}
               type="text"
-              placeholder="Type here"
+              placeholder="Category"
               className="w-full input input-bordered"
               value={selectedProduct?.category}
             />
@@ -38,7 +38,7 @@ export const EditModal = ({
               name="price"
               onChange={handleInputChange}
               type="text"
-              placeholder="Type here"
+              placeholder="Price"
               className="w-full input input-bordered"
               value={selectedProduct?.price}
             />
@@ -49,6 +49,6 @@ export const EditModal = ({
           </button>
         </div>
       </dialog>
-    </>
+    </main>
   );
 };
