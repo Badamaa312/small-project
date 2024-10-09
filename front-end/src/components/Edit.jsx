@@ -19,20 +19,20 @@ export const EditModal = ({
           <h3 className="text-lg font-bold">Edit product</h3>
           <div className="flex flex-col gap-3 mt-4">
             <input
-              name="productName"
+              name="name"
               onChange={handleInputChange}
               type="text"
-              placeholder="ProductName"
+              placeholder="name"
               className="w-full input input-bordered"
-              value={selectedProduct?.productName}
+              value={selectedProduct?.name}
             />
             <input
-              name="category"
+              name="description"
               onChange={handleInputChange}
               type="text"
-              placeholder="Category"
+              placeholder="description"
               className="w-full input input-bordered"
-              value={selectedProduct?.category}
+              value={selectedProduct?.description}
             />
             <input
               name="price"
@@ -41,6 +41,14 @@ export const EditModal = ({
               placeholder="Price"
               className="w-full input input-bordered"
               value={selectedProduct?.price}
+            />
+            <input
+              name="image_url"
+              onChange={handleInputChange}
+              type="text"
+              placeholder="image_url"
+              className="w-full input input-bordered"
+              value={selectedProduct?.image_url}
             />
           </div>
 

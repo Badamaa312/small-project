@@ -24,9 +24,10 @@ export const CreateCard = ({ setProducts }) => {
     }
 
     setProduct({
-      productName: "",
-      category: "",
+      name: "",
+      description: "",
       price: "",
+      image_url: "",
     });
     document.getElementById("my_modal_1").close();
   };
@@ -65,9 +66,9 @@ export const CreateCard = ({ setProducts }) => {
               name="productName"
               onChange={handleInputChange}
               type="text"
-              placeholder="ProductName"
+              placeholder="name"
               className="w-full input input-bordered"
-              value={product?.productName}
+              value={product?.name}
             />
             <input
               name="category"
@@ -75,7 +76,7 @@ export const CreateCard = ({ setProducts }) => {
               type="text"
               placeholder="Category"
               className="w-full input input-bordered"
-              value={product?.category}
+              value={product?.description}
             />
             <input
               name="price"
@@ -84,6 +85,14 @@ export const CreateCard = ({ setProducts }) => {
               placeholder="Price"
               className="w-full input input-bordered"
               value={product?.price}
+            />
+            <input
+              name="image_url"
+              onChange={handleInputChange}
+              type="text"
+              placeholder="image_url"
+              className="w-full input input-bordered"
+              value={product?.image_url}
             />
           </div>
 

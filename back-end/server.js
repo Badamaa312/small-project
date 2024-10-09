@@ -2,6 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import fs from "fs";
+import { neon } from "@neondatabase/serverless";
+import dotenv from "dotenv";
+dotenv.config();
 
 const port = 5555;
 const app = express();
@@ -10,8 +13,16 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.get("/", (request, response) => {
-  response.send("Hello GET huselt irlee");
+const sql = neon(`${process.env.DATABASE_URL}`);
+
+app.get("/", async (request, response) => {
+  try {
+    const sqlResponse = await sql`SELECT * FROM team`;
+
+    response.json({ data: sqlResponse, success: true });
+  } catch (error) {
+    response.json({ error: error, success: false });
+  }
 });
 
 app.get("/products", (request, response) => {
@@ -31,8 +42,8 @@ app.get("/products", (request, response) => {
 app.post("/product", (request, response) => {
   console.log("irlee");
 
-  const { productName, category, price } = request.body;
-  console.log("price", price, productName, category);
+  const { name, description, price, image_url } = request.body;
+  console.log("price", price, name, description);
 
   fs.readFile("./data/products.json", "utf-8", (readError, data) => {
     if (readError) {
@@ -46,9 +57,10 @@ app.post("/product", (request, response) => {
 
     const newProduct = {
       id: Date.now().toString(),
-      productName: productName,
-      category: category,
+      name: name,
+      description: description,
       price: price,
+      image_url: image_url,
     };
 
     dbData.push(newProduct);
@@ -112,7 +124,7 @@ app.delete("/product", (request, response) => {
 });
 
 app.put("/product", (request, response) => {
-  const { id, productName, category, price } = request.body;
+  const { id, name, description, price, image_url } = request.body;
 
   fs.readFile("./data/products.json", "utf-8", (readError, data) => {
     if (readError) {
@@ -128,9 +140,10 @@ app.put("/product", (request, response) => {
       if (data?.id === id) {
         return {
           id,
-          productName,
-          category,
+          name,
+          description,
           price,
+          image_url,
         };
       }
       return data;

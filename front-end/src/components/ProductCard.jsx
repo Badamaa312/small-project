@@ -7,7 +7,7 @@ const Card = ({
   setSelectedProduct,
   setProducts,
 }) => {
-  const { productName, category, price } = product;
+  const { name, description, price, image_url } = product;
 
   const handleDelete = async (id) => {
     try {
@@ -64,16 +64,17 @@ const Card = ({
   return (
     <div class="card bg-base-100 w-96 shadow-xl">
       <figure>
-        <img
+        {/* <img
           src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
           alt="Shoes"
-        />
+        /> */}
       </figure>
       <div class="card-body">
-        <h2 class="card-title">{productName}</h2>
+        <h2 class="card-title">{name}</h2>
         <div className="flex justify-between">
-          <p>{category}</p>
+          <p>{description}</p>
           <p>{price}$</p>
+          <p>{image_url}</p>
         </div>
       </div>
       <div className="justify-end p-4 pt-0 card-actions">
