@@ -3,11 +3,13 @@
 import { BACKEND_ENDPOINT } from "@/constants/constant";
 import { useState } from "react";
 
-export const CreateCard = ({ setProducts }) => {
-  const [product, setProduct] = useState({});
+export const LogInCustomer = ({ setProducts }) => {
+  //   const [product, setProduct] = useState({});
+
+  const [user, setUser] = useState({});
 
   const handleSubmit = async (event) => {
-    console.log(product);
+    console.log(user);
 
     try {
       event.preventDefault();
@@ -25,11 +27,10 @@ export const CreateCard = ({ setProducts }) => {
     } catch {
       console.log("error");
     }
-    setProduct({
+    setUser({
       name: "",
-      description: "",
-      price: "",
-      image_url: "",
+      email: "",
+      address: "",
     });
     document.getElementById("my_modal_1").close();
   };
@@ -38,7 +39,7 @@ export const CreateCard = ({ setProducts }) => {
     const name = event.target.name;
     const value = event.target.value;
 
-    setProduct((prevProduct) => {
+    setUser((prevProduct) => {
       return {
         ...prevProduct,
         [name]: value,
@@ -52,11 +53,11 @@ export const CreateCard = ({ setProducts }) => {
         className="btn btn-outline btn-info"
         onClick={() => document.getElementById("my_modal_1").showModal()}
       >
-        Create product
+        Login
       </button>
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <h3 className="text-lg font-bold">Create product</h3>
+          <h3 className="text-lg font-bold">Login</h3>
           <div className="flex flex-col gap-3 mt-4">
             <figure>
               <img
@@ -70,7 +71,7 @@ export const CreateCard = ({ setProducts }) => {
               type="text"
               placeholder="name"
               className="w-full input input-bordered"
-              value={product?.name}
+              value={user?.name}
             />
             <input
               name="description"
@@ -78,7 +79,7 @@ export const CreateCard = ({ setProducts }) => {
               type="text"
               placeholder="description"
               className="w-full input input-bordered"
-              value={product?.description}
+              value={user?.email}
             />
             <input
               name="price"
@@ -86,15 +87,7 @@ export const CreateCard = ({ setProducts }) => {
               type="text"
               placeholder="Price"
               className="w-full input input-bordered"
-              value={product?.price}
-            />
-            <input
-              name="image_url"
-              onChange={handleInputChange}
-              type="text"
-              placeholder="image_url"
-              className="w-full input input-bordered"
-              value={product?.image_url}
+              value={user?.address}
             />
           </div>
 
