@@ -23,7 +23,7 @@ const Header = () => {
   }, []);
 
   return (
-    <main className="w-screen h-screen flex items-center flex-col">
+    <main className="w-screen  flex items-center flex-col">
       <header className="container h-[130px] border border-grey rounded-[20px] flex items-center justify-between p-2 bg-blue-200 ">
         <img
           className="w-[100px] h-[100px] rounded-[20px]"
@@ -38,8 +38,7 @@ const Header = () => {
         />
         <CreateCard setProducts={setProducts} />
       </header>
-
-      <div className="grid grid-cols-3 gap-6 mt-6">
+      <div className="grid grid-cols-3 gap-6">
         {products?.map((product) => {
           return (
             <Card
