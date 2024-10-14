@@ -2,9 +2,12 @@
 
 import { CreateCard } from "@/components/CreateCard";
 import Card from "@/components/ProductCard";
+
 import { useState, useEffect } from "react";
 
 const Header = () => {
+  const BACKEND_ENDPOINT = "http://localhost:5555";
+
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
 
@@ -25,11 +28,11 @@ const Header = () => {
   return (
     <main className="w-screen  flex items-center flex-col">
       <header className="container h-[130px] border border-grey rounded-[20px] flex items-center justify-between p-2 bg-blue-200 ">
-        <img
+        {/* <img
           className="w-[100px] h-[100px] rounded-[20px]"
           src="front-end\src\public\logo.jpeg"
           alt=""
-        />
+        /> */}
         <input
           name=""
           placeholder="Search"
@@ -42,6 +45,7 @@ const Header = () => {
         {products?.map((product) => {
           return (
             <Card
+              key={product?.id}
               product={product}
               setProducts={setProducts}
               setSelectedProduct={setSelectedProduct}

@@ -87,7 +87,7 @@ app.post("/sign-up", async (request, response) => {
 });
 
 app.post("/sign-in", (request, response) => {
-  const { name, password } = request.body;
+  const { name, email } = request.body;
 
   fs.readFile("./data/user.json", "utf-8", (readError, data) => {
     if (readError) {
@@ -100,7 +100,7 @@ app.post("/sign-in", (request, response) => {
     let savedData = data ? JSON.parse(data) : [];
 
     const registeredUser = savedData.filter(
-      (user) => user.name === name && user.password === password
+      (user) => user.name === name && user.email === email
     );
     if (registeredUser.length > 0) {
       response.json({

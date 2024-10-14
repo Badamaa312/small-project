@@ -22,7 +22,7 @@ export const SignUpPage = () => {
       };
       const response = await fetch(`${BACKEND_ENDPOINT}`, options);
       const data = await response.json();
-
+//router.push("/products")
       // setProducts((prevProducts) => [...prevProducts, data]);
     } catch {
       console.log("error");

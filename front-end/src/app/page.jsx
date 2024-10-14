@@ -6,8 +6,8 @@ export default function Home() {
   return (
     <main className="w-screen h-screen flex items-center flex-col">
       <Header />
-      <SignInPage />
-      <SignUpPage />
+      {/* <SignInPage /> */}
+      {/* <SignUpPage /> */}
     </main>
   );
 }
