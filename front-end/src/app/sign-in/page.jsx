@@ -92,14 +92,12 @@ const SignInPage = () => {
                 placeholder="email"
                 className="input input-bordered text-[#A3A3A3] text-base w-full  border  border-[#D1D5DB] bg-[#F3F4F6]"
               />
-              <button className="btn btn-primary rounded-[20px] text-xl leading-7 text-white">
-                Log in
-              </button>
-              {/* <div className="grid grid-cols-3 gap-6">
-                {products?.map((product) => {
-                  return <Card product={product} setProducts={setProducts} />;
-                })}
-              </div> */}
+              <Link href="./products">
+                {" "}
+                <button className="btn btn-primary rounded-[20px] text-xl leading-7 text-white">
+                  Log in
+                </button>
+              </Link>
             </form>
           </div>
           <div className="flex gap-1 h-8 justify-center items-center">

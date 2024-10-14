@@ -22,7 +22,7 @@ export const SignUpPage = () => {
       };
       const response = await fetch(`${BACKEND_ENDPOINT}`, options);
       const data = await response.json();
-//router.push("/products")
+      //router.push("/products")
       // setProducts((prevProducts) => [...prevProducts, data]);
     } catch {
       console.log("error");
@@ -106,10 +106,11 @@ export const SignUpPage = () => {
                     className="w-full input input-bordered"
                   />
                 </div>
-
-                <button className="mt-4 btn" onClick={handleOnSubmit}>
-                  Submit
-                </button>
+                <Link href="./products">
+                  <button className="mt-4 btn" onClick={handleOnSubmit}>
+                    Submit
+                  </button>
+                </Link>
               </div>
             </dialog>
             <div className="flex gap-1 h-8 justify-center items-center">
