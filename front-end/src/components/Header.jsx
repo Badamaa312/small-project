@@ -15,7 +15,8 @@ const Header = () => {
     try {
       const response = await fetch(`${BACKEND_ENDPOINT}/products`);
       const responseData = await response.json();
-      setProducts(responseData?.products);
+
+      setProducts(responseData?.data);
     } catch (error) {
       console.log(error);
     }
@@ -28,11 +29,6 @@ const Header = () => {
   return (
     <main className="w-screen  flex items-center flex-col">
       <header className="container h-[130px] border border-grey rounded-[20px] flex items-center justify-between p-2 bg-blue-200 ">
-        {/* <img
-          className="w-[100px] h-[100px] rounded-[20px]"
-          src="front-end\src\public\logo.jpeg"
-          alt=""
-        /> */}
         <input
           name=""
           placeholder="Search"

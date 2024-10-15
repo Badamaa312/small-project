@@ -106,7 +106,7 @@ export const SignUpPage = () => {
                     className="w-full input input-bordered"
                   />
                 </div>
-                <Link href="./products">
+                <Link href="./product">
                   <button className="mt-4 btn" onClick={handleOnSubmit}>
                     Submit
                   </button>

@@ -15,7 +15,7 @@ app.use(cors());
 
 const sql = neon(`${process.env.DATABASE_URL}`);
 
-app.get("/", async (request, response) => {
+app.get("/products", async (request, response) => {
   try {
     const sqlResponse = await sql`SELECT * FROM products`;
 
