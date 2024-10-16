@@ -27,7 +27,7 @@ const Card = ({
     } catch {
       console.log("error");
     }
-    document.getElementById("my_modal_2").close();
+    document.getElementById("my_modal_5").close();
   };
 
   const handleSubmit = async (event) => {
@@ -46,7 +46,7 @@ const Card = ({
     } catch {
       console.log("error");
     }
-    document.getElementById("my_modal_2").close();
+    document.getElementById("my_modal_5").close();
   };
 
   const handleInputChange = (event) => {

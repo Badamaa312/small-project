@@ -6,9 +6,9 @@ import ProductsPage from "./products/page";
 export default function Home() {
   return (
     <main className="w-screen h-screen ">
-      {/* <Header /> */}
+      <Header />
       {/* <SignInPage /> */}
-      <SignUpPage />
+      {/* <SignUpPage /> */}
       {/* <ProductsPage /> */}
     </main>
   );

@@ -1,5 +1,8 @@
 "use client";
 
+import AdminIcon from "@/components/icons/AdminIcons";
+import HomeIcon from "@/components/icons/HomeIcon";
+import OrdersIcon from "@/components/icons/OrdersIcon";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -54,6 +57,19 @@ export const SignUpPage = () => {
   return (
     <div className="">
       <div className="flex w-full h-screen">
+        <header className="w-full h-[130px] border border-grey rounded-[20px] flex items-center justify-around p-2 bg-gray-200 fixed z-50">
+          <span>Shopping</span>
+          <input
+            name=""
+            placeholder="Search"
+            className="w-[500px] h-[50px] border border-grey rounded-[10px] pl-4"
+            type="text"
+          />
+          <div className="flex items-center gap-2 ">
+            <HomeIcon />
+            <AdminIcon />
+          </div>
+        </header>
         <div className="w-1/2 h-full flex items-center justify-end pr-[126px]">
           <div className="w-[384px] h-[426px] flex flex-col gap-10">
             <div className="flex justify-center items-center gap-[10px] p-[6px]"></div>

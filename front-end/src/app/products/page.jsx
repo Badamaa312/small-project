@@ -1,10 +1,14 @@
 "use client";
 
+import AdminIcon from "@/components/icons/AdminIcons";
+import HomeIcon from "@/components/icons/HomeIcon";
+import OrdersIcon from "@/components/icons/OrdersIcon";
+
 import { useEffect, useState } from "react";
 
 export default function ProductsPage() {
   const [datas, setDatas] = useState([]);
-  const [card, setCard] = useState([]);
+  const [cards, setCards] = useState([]);
 
   const fetchDatas = async () => {
     try {
@@ -17,10 +21,12 @@ export default function ProductsPage() {
     }
   };
 
-  const addCard = (id, name, description, price) => {
-    const card = { id, name, description, price };
-    setCard((prevProducts) => [...prevProducts, card]);
+  const addCard = (id, name, price) => {
+    const card = { id, name, price };
+    setCards((prevProducts) => [...prevProducts, card]);
   };
+
+  console.log(cards);
 
   useEffect(() => {
     fetchDatas();
@@ -37,21 +43,9 @@ export default function ProductsPage() {
           type="text"
         />
         <div className="flex items-center gap-2 ">
-          <img
-            className="w-[25px] h-[25px] rounded-[20px]"
-            src="./home.png"
-            alt=""
-          />
-          <img
-            className="w-[25px] h-[25px] rounded-[20px]"
-            src="./admin.png"
-            alt=""
-          />
-          <img
-            className="w-[25px] h-[25px] rounded-[20px]"
-            src="./box.png"
-            alt=""
-          />
+          <HomeIcon />
+          <AdminIcon />
+          <OrdersIcon cards={cards} setCards={setCards} />
         </div>
       </header>
       <div className="container grid grid-cols-3 gap-6 mt-40">
@@ -67,9 +61,15 @@ export default function ProductsPage() {
                 <p>{data.price}$</p>
                 <div className="card-actions justify-end">
                   <button className="btn btn-neutral">Detail</button>
-                  <div className="btn btn-neutral" onClick={addCard}>
+
+                  <button
+                    className="btn btn-neutral"
+                    onClick={() => {
+                      addCard(data.id, data.price, data.name);
+                    }}
+                  >
                     Add order
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>

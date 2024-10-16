@@ -95,11 +95,6 @@ const SignInPage = () => {
               <button className="btn btn-primary rounded-[20px] text-xl leading-7 text-white">
                 Log in
               </button>
-              {/* <div className="grid grid-cols-3 gap-6">
-                {products?.map((product) => {
-                  return <Card product={product} setProducts={setProducts} />;
-                })}
-              </div> */}
             </form>
           </div>
           <div className="flex gap-1 h-8 justify-center items-center">
