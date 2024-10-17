@@ -29,7 +29,7 @@ export const CreateCard = ({ setProducts }) => {
       price: "",
       image_url: "",
     });
-    document.getElementById("my_modal_1").close();
+    document.getElementById("my_modal_4").close();
   };
 
   const handleInputChange = (event) => {
@@ -48,19 +48,16 @@ export const CreateCard = ({ setProducts }) => {
     <>
       <button
         className="btn btn-outline btn-info"
-        onClick={() => document.getElementById("my_modal_1").showModal()}
+        onClick={() => document.getElementById("my_modal_4").showModal()}
       >
         Create product
       </button>
-      <dialog id="my_modal_1" className="modal">
+      <dialog id="my_modal_4" className="modal">
         <div className="modal-box">
           <h3 className="text-lg font-bold">Create product</h3>
           <div className="flex flex-col gap-3 mt-4">
             <figure>
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes"
-              />
+              <img src="./logo.png" alt="photo" />
             </figure>
             <input
               name="name"
@@ -95,10 +92,14 @@ export const CreateCard = ({ setProducts }) => {
               value={product?.image_url}
             />
           </div>
-
-          <button className="mt-4 btn" onClick={handleSubmit}>
-            Submit
-          </button>
+          <div className="modal-action">
+            <form method="dialog" className="flex items-center gap-2">
+              <button className="mt-4 btn" onClick={handleSubmit}>
+                Submit
+              </button>
+              <button className="btn">Close</button>
+            </form>
+          </div>
         </div>
       </dialog>
     </>
