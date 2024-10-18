@@ -59,6 +59,21 @@ app.post("/product", async (request, response) => {
   }
 });
 
+app.delete("/product", async (request, response) => {
+  const { id } = request.body;
+
+  try {
+    const sqlDeleteResponse = await sql`
+      DELETE FROM products 
+     WHERE id=${id}
+      RETURNING *;`;
+
+    response.json(sqlDeleteResponse);
+  } catch (error) {
+    console.error("Error deleting product:", error);
+  }
+});
+
 app.post("/sign-up", async (request, response) => {
   const { name, email, address } = request.body;
 
@@ -112,50 +127,6 @@ app.post("/sign-in", (request, response) => {
         success: false,
       });
     }
-  });
-});
-
-app.delete("/product", (request, response) => {
-  const { id } = request.body;
-
-  fs.readFile("./data/products.json", "utf-8", (readError, data) => {
-    if (readError) {
-      response.json({
-        success: false,
-        error: error,
-      });
-    }
-
-    let dbData = data ? JSON.parse(data) : [];
-
-    const filteredData = dbData.filter((data) => data?.id !== id);
-
-    const deleteProduct = dbData.find((data) => data?.id === id);
-
-    if (filteredData.length === dbData.length) {
-      response.json({
-        success: false,
-        error: "Product id not found",
-      });
-    }
-
-    fs.writeFile(
-      "./data/products.json",
-      JSON.stringify(filteredData),
-      (error) => {
-        if (error) {
-          response.json({
-            success: false,
-            error: error,
-          });
-        } else {
-          response.json({
-            success: true,
-            products: deleteProduct,
-          });
-        }
-      }
-    );
   });
 });
 
@@ -300,5 +271,98 @@ app.listen(port, () => {
 //         });
 //       }
 //     });
+//   });
+// });
+
+//Prodct.json deerh BE-s data ustgaj bui heseg
+
+// app.delete("/product", (request, response) => {
+//   const { id } = request.body;
+
+// fs.readFile("./data/products.json", "utf-8", (readError, data) => {
+//   if (readError) {
+//     response.json({
+//       success: false,
+//       error: error,
+//     });
+//   }
+
+//   let dbData = data ? JSON.parse(data) : [];
+
+//   const filteredData = dbData.filter((data) => data?.id !== id);
+
+//   const deleteProduct = dbData.find((data) => data?.id === id);
+
+//   if (filteredData.length === dbData.length) {
+//     response.json({
+//       success: false,
+//       error: "Product id not found",
+//     });
+//   }
+
+//   fs.writeFile(
+//     "./data/products.json",
+//     JSON.stringify(filteredData),
+//     (error) => {
+//       if (error) {
+//         response.json({
+//           success: false,
+//           error: error,
+//         });
+//       } else {
+//         response.json({
+//           success: true,
+//           products: deleteProduct,
+//         });
+//       }
+//     }
+//   );
+// });
+
+//Prodct.json deerh BE-s data edit hiij bui heseg
+
+// app.put("/product", (request, response) => {
+//   const { id, name, description, price, image_url } = request.body;
+
+//   fs.readFile("./data/products.json", "utf-8", (readError, data) => {
+//     if (readError) {
+//       response.json({
+//         success: false,
+//         error: error,
+//       });
+//     }
+
+//     let dbData = data ? JSON.parse(data) : [];
+
+//     const editedData = dbData.map((data) => {
+//       if (data?.id === id) {
+//         return {
+//           id,
+//           name,
+//           description,
+//           price,
+//           image_url,
+//         };
+//       }
+//       return data;
+//     });
+
+//     fs.writeFile(
+//       "./data/products.json",
+//       JSON.stringify(editedData),
+//       (error) => {
+//         if (error) {
+//           response.json({
+//             success: false,
+//             error: error,
+//           });
+//         } else {
+//           response.json({
+//             success: true,
+//             products: editedData,
+//           });
+//         }
+//       }
+//     );
 //   });
 // });

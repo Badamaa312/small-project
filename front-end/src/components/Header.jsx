@@ -37,10 +37,10 @@ const Header = () => {
       setProducts((prevProducts) =>
         prevProducts.filter((product) => data?.product?.id !== product?.id)
       );
+      alert("Product successfully removed.");
     } catch {
       console.log("error");
     }
-    // document.getElementById("my_modal_5").close();
   };
 
   useEffect(() => {

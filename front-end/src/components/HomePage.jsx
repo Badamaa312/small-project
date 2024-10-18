@@ -21,9 +21,25 @@ const HomePage = () => {
     }
   };
 
-  const addCard = (id, name, price) => {
-    const card = { id, name, price };
-    setCards((prevProducts) => [...prevProducts, card]);
+  const addCard = (id, name, description, price) => {
+    const card = { id, name, description, price, count: 1 };
+
+    setCards((prevItems) => {
+      const isExists = prevItems.find((item) => item.id === id);
+
+      if (isExists) {
+        return prevItems.map((item) => {
+          if (item.id === id) {
+            return {
+              ...item,
+              count: item.count + 1,
+            };
+          }
+          return item;
+        });
+      }
+      return [...prevItems, card];
+    });
   };
 
   console.log(cards);
@@ -60,12 +76,12 @@ const HomePage = () => {
                 <p>{data.description}</p>
                 <p>{data.price}$</p>
                 <div className="card-actions justify-end">
-                  <button className="btn btn-neutral">Detail</button>
+                  <button className="btn">Detail</button>
 
                   <button
-                    className="btn btn-neutral"
+                    className="btn "
                     onClick={() => {
-                      addCard(data.id, data.price, data.name);
+                      addCard(data.id, data.name, data.description, data.price);
                     }}
                   >
                     Add order
