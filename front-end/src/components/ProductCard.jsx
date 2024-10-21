@@ -9,26 +9,26 @@ const Card = ({
 }) => {
   const { name, description, price, image_url } = product;
 
-  const handleDelete = async (id) => {
-    try {
-      const options = {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id }),
-      };
-      const response = await fetch(`${BACKEND_ENDPOINT}/product`, options);
-      const data = await response.json();
+  // const handleDelete = async (id) => {
+  //   try {
+  //     const options = {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ id: id }),
+  //     };
+  //     const response = await fetch(`${BACKEND_ENDPOINT}/product`, options);
+  //     const data = await response.json();
 
-      setProducts((prevProducts) =>
-        prevProducts.filter((product) => data?.product?.id !== product?.id)
-      );
-    } catch {
-      console.log("error");
-    }
-    document.getElementById("my_modal_5").close();
-  };
+  //     setProducts((prevProducts) =>
+  //       prevProducts.filter((product) => data?.product?.id !== product?.id)
+  //     );
+  //   } catch {
+  //     console.log("error");
+  //   }
+  //   document.getElementById("my_modal_5").close();
+  // };
 
   const handleSubmit = async (event) => {
     try {
@@ -85,9 +85,9 @@ const Card = ({
           handleSubmit={handleSubmit}
           handleInputChange={handleInputChange}
         />
-        <button onClick={() => handleDelete(product?.id)} className="btn">
+        {/* <button onClick={() => handleDelete(product?.id)} className="btn">
           Delete
-        </button>
+        </button> */}
       </div>
     </div>
   );

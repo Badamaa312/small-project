@@ -1,4 +1,4 @@
-export const EditModal = ({
+export const EditProduct = ({
   selectedProduct,
   handleSubmit,
   handleInputChange,
@@ -9,6 +9,7 @@ export const EditModal = ({
     document.getElementById("my_modal_2").showModal();
     setSelectedProduct(product);
   };
+
   return (
     <main className="">
       <button className="btn" onClick={handleModalClick}>
@@ -52,9 +53,14 @@ export const EditModal = ({
             />
           </div>
 
-          <button className="mt-4 btn" onClick={handleSubmit}>
-            Submit
-          </button>
+          <div className="modal-action">
+            <form method="dialog" className="flex gap-4">
+              <button className="mt-4 btn" onClick={handleSubmit}>
+                Submit
+              </button>
+              <button className="btn">Close</button>
+            </form>
+          </div>
         </div>
       </dialog>
     </main>

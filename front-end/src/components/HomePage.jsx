@@ -76,7 +76,7 @@ const HomePage = () => {
                 <p>{data.description}</p>
                 <p>{data.price}$</p>
                 <div className="card-actions justify-end">
-                  <button className="btn">Detail</button>
+                  {/* <button className="btn">Detail</button> */}
 
                   <button
                     className="btn "

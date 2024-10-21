@@ -1,3 +1,5 @@
+import { BACKEND_ENDPOINT } from "@/constants/constant";
+
 const OrdersIcon = ({ cards, setCards }) => {
   const handleDecrease = (id) => {
     setCards((prevCardItems) => {
@@ -26,31 +28,31 @@ const OrdersIcon = ({ cards, setCards }) => {
     });
   };
 
-  // const handleSubmit = async (event) => {
-  //   try {
-  //     event.preventDefault();
-  //     const options = {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(product),
-  //     };
-  //     const response = await fetch(`${BACKEND_ENDPOINT}/product`, options);
-  //     const data = await response.json();
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      };
+      const response = await fetch(`${BACKEND_ENDPOINT}/order_items`, options);
+      const data = await response.json();
 
-  //     setProducts((prevProducts) => [...prevProducts, data[0]]);
-  //   } catch (error) {
-  //     console.log(error, "error");
-  //   }
-  //   setProduct({
-  //     name: "",
-  //     description: "",
-  //     price: "",
-  //     image_url: "",
-  //   });
-  //   document.getElementById("my_modal_4").close();
-  // };
+      // setProducts((prevProducts) => [...prevProducts, data[0]]);
+    } catch (error) {
+      console.log(error, "error");
+    }
+    // setProduct({
+    //   name: "",
+    //   description: "",
+    //   price: "",
+    //   image_url: "",
+    // });
+    // document.getElementById("my_modal_4").close();
+  };
 
   return (
     <main>
@@ -82,6 +84,7 @@ const OrdersIcon = ({ cards, setCards }) => {
                       <p className="pl-6">{card.count}</p>
                       <button onClick={() => handleIncrease(card.id)}>+</button>
                     </div>
+                    <p>Total price each product: {card.price * card.count}$</p>
                   </div>
                 </div>
               );
@@ -89,9 +92,10 @@ const OrdersIcon = ({ cards, setCards }) => {
           </div>
           <div className="modal-action">
             <form method="dialog" className="flex items-center gap-2">
-              {/* <button className="mt-4 btn" onClick={handleSubmit}>
+              <button className="mt-4 btn" onClick={handleSubmit}>
                 Submit
-              </button> */}
+              </button>
+              <button className="btn">Submit</button>
               <button className="btn">Close</button>
             </form>
           </div>

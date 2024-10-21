@@ -2,7 +2,7 @@
 
 import AdminIcon from "@/components/icons/AdminIcons";
 import HomeIcon from "@/components/icons/HomeIcon";
-import OrdersIcon from "@/components/icons/OrdersIcon";
+
 import Link from "next/link";
 import { useState } from "react";
 
@@ -25,8 +25,6 @@ export const SignUpPage = () => {
       };
       const response = await fetch(`${BACKEND_ENDPOINT}`, options);
       const data = await response.json();
-      //router.push("/products")
-      // setProducts((prevProducts) => [...prevProducts, data]);
     } catch {
       console.log("error");
     }

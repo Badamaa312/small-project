@@ -130,53 +130,128 @@ app.post("/sign-in", (request, response) => {
   });
 });
 
-// edit-legdsen gants data butsaadag bolgoh like Delete
+app.put("/product/:id", async (request, response) => {
+  const { id } = request.params;
+  const { name, description, price, image_url } = request.body;
 
-app.put("/product", (request, response) => {
-  const { id, name, description, price, image_url } = request.body;
+  if (isNaN(id) || id <= 0) {
+    return response.status(400).json({ error: "Invalid product ID." });
+  }
 
-  fs.readFile("./data/products.json", "utf-8", (readError, data) => {
-    if (readError) {
-      response.json({
-        success: false,
-        error: error,
-      });
+  if (!name && !description && !price && !image_url) {
+    return response
+      .status(400)
+      .json({ error: "At least one field must be provided to update." });
+  }
+
+  if (price !== undefined && (isNaN(price) || price <= 0)) {
+    return response
+      .status(400)
+      .json({ error: "Price must be a positive number." });
+  }
+
+  try {
+    const sqlResponse = await sql`
+      UPDATE products
+      SET
+        name=${name},
+        description = ${description}, 
+        price= ${price}, 
+        image_url=${image_url}
+      WHERE id = ${id}
+      RETURNING *;`;
+    if (sqlResponse.length === 0) {
+      return response.status(404).json({ error: "Product not found." });
     }
 
-    let dbData = data ? JSON.parse(data) : [];
-
-    const editedData = dbData.map((data) => {
-      if (data?.id === id) {
-        return {
-          id,
-          name,
-          description,
-          price,
-          image_url,
-        };
-      }
-      return data;
+    response.json({
+      message: "Product updated successfully.",
+      updatedProduct: sqlResponse[0],
     });
-
-    fs.writeFile(
-      "./data/products.json",
-      JSON.stringify(editedData),
-      (error) => {
-        if (error) {
-          response.json({
-            success: false,
-            error: error,
-          });
-        } else {
-          response.json({
-            success: true,
-            products: editedData,
-          });
-        }
-      }
-    );
-  });
+  } catch (error) {
+    console.error("Error updating product:", error);
+    response
+      .status(500)
+      .json({ error: "Internal Server Error", details: error.message });
+  }
 });
+
+// edit-legdsen gants data butsaadag bolgoh like Delete
+
+// app.put("/product/:id", async (request, response) => {
+//   const { id } = request.id;
+//   const { id, name, description, price, image_url } = request.body;
+
+//   if (!name || !description || !price || !image_url) {
+//     return response.status(400).json({ error: "Please input explanation." });
+//   }
+
+//   if (isNaN(price) || price <= 0) {
+//     return response
+//       .status(400)
+//       .json({ error: "Price must be a positive number." });
+//   }
+
+//   try {
+//     const sqlResponse = await sql`
+//       UPDATE products SET name=${name} , description = ${description}, price= ${price}, image_url=${image_url})
+//      WHERE id=${id}
+//       RETURNING *;`;
+//     if (sqlResponse.length === 0) {
+//       return response.status(404).json({ error: "product not found" });
+//     }
+
+//     response.json(sqlResponse);
+//   } catch (error) {
+//     console.error("Error adding product:", error);
+//   }
+// });
+
+// app.put("/product", (request, response) => {
+//   const { id, name, description, price, image_url } = request.body;
+
+//   fs.readFile("./data/products.json", "utf-8", (readError, data) => {
+//     if (readError) {
+//       response.json({
+//         success: false,
+//         error: error,
+//       });
+//     }
+
+//     let dbData = data ? JSON.parse(data) : [];
+
+//     const editedData = dbData.map((data) => {
+//       if (data?.id === id) {
+//         return {
+//           id,
+//           name,
+//           description,
+//           price,
+//           image_url,
+//         };
+//       }
+//       return data;
+//     });
+
+//     fs.writeFile(
+//       "./data/products.json",
+//       JSON.stringify(editedData),
+//       (error) => {
+//         if (error) {
+//           response.json({
+//             success: false,
+//             error: error,
+//           });
+//         } else {
+//           response.json({
+//             success: true,
+//             products: editedData,
+//           });
+//         }
+//       }
+//     );
+//   });
+// });
 
 app.listen(port, () => {
   console.log(`Server ajillaj bn http://localhost:${port}`);

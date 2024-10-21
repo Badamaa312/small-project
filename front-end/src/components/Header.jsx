@@ -1,9 +1,9 @@
 "use client";
 
 import { CreateCard } from "@/components/CreateCard";
-import Card from "@/components/ProductCard";
 
 import { useState, useEffect } from "react";
+import { EditProduct } from "./Edit";
 
 const Header = () => {
   const BACKEND_ENDPOINT = "http://localhost:5555";
@@ -18,7 +18,7 @@ const Header = () => {
 
       setProducts(responseData?.data);
     } catch (error) {
-      console.log(error);
+      console.log("error in fetching products", error);
     }
   };
 
@@ -38,19 +38,52 @@ const Header = () => {
         prevProducts.filter((product) => data?.product?.id !== product?.id)
       );
       alert("Product successfully removed.");
-    } catch {
-      console.log("error");
+    } catch (error) {
+      console.log("error in delete product", error);
     }
+  };
+
+  const handleSubmit = async (id) => {
+    try {
+      const options = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(selectedProduct),
+      };
+      const response = await fetch(
+        `${BACKEND_ENDPOINT}/product/${id}`,
+        options
+      );
+      const data = await response.json(response);
+
+      setProducts(data.products);
+    } catch (error) {
+      console.log("error in update product", error);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    setSelectedProduct((prevProduct) => {
+      return {
+        ...prevProduct,
+        [name]: value,
+      };
+    });
   };
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [products]);
 
   return (
     <main className="w-screen  flex items-center flex-col">
       <header className="container h-[130px] border border-grey rounded-[20px] flex items-center justify-around p-2 bg-gray-200 fixed z-50">
-        <span>Shopping</span>
+        <img src="./logo.png" width={50} height={50} alt="Photo" />
         <input
           name=""
           placeholder="Search"
@@ -73,7 +106,14 @@ const Header = () => {
                 <p>{product.description}</p>
                 <p>{product.price}$</p>
                 <div className="card-actions justify-end">
-                  <button className="btn btn-neutral">Edit</button>
+                  <EditProduct
+                    product={product}
+                    setSelectedProduct={setSelectedProduct}
+                    selectedProduct={selectedProduct}
+                    handleSubmit={() => handleSubmit(product?.id)}
+                    handleInputChange={handleInputChange}
+                  />
+
                   <button
                     onClick={() => handleDelete(product?.id)}
                     className="btn"
