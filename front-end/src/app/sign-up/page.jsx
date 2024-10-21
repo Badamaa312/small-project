@@ -2,7 +2,7 @@
 
 import AdminIcon from "@/components/icons/AdminIcons";
 import HomeIcon from "@/components/icons/HomeIcon";
-
+import OrdersIcon from "@/components/icons/OrdersIcon";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -25,6 +25,8 @@ export const SignUpPage = () => {
       };
       const response = await fetch(`${BACKEND_ENDPOINT}`, options);
       const data = await response.json();
+      //router.push("/products")
+      // setProducts((prevProducts) => [...prevProducts, data]);
     } catch {
       console.log("error");
     }
@@ -56,7 +58,7 @@ export const SignUpPage = () => {
     <div className="">
       <div className="flex w-full h-screen">
         <header className="w-full h-[130px] border border-grey rounded-[20px] flex items-center justify-around p-2 bg-gray-200 fixed z-50">
-          <span>Shopping</span>
+          <img src="./logo.png" width={50} height={50} alt="" />
           <input
             name=""
             placeholder="Search"
@@ -70,11 +72,12 @@ export const SignUpPage = () => {
         </header>
         <div className="w-1/2 h-full flex items-center justify-end pr-[126px]">
           <div className="w-[384px] h-[426px] flex flex-col gap-10">
-            <div className="flex justify-center items-center gap-[10px] p-[6px]"></div>
-            <div className="flex flex-col items-center gap-2">
+            <div className="flex justify-center items-center gap-[10px] p-[6px]">
               <p className="text-base font-normal text-[#334155] ">
                 Sign up below to create your Wallet account
               </p>
+            </div>
+            <div className="flex flex-col items-center gap-2">
               <button
                 className="btn btn-outline btn-info  "
                 onClick={() =>
@@ -120,7 +123,13 @@ export const SignUpPage = () => {
                     className="w-full input input-bordered"
                   />
                 </div>
-                <Link href="./product">
+
+                <div className="modal-action">
+                  <form method="dialog" className="">
+                    <button className="btn">Close</button>
+                  </form>
+                </div>
+                <Link href="./admin">
                   <button className="mt-4 btn" onClick={handleOnSubmit}>
                     Submit
                   </button>

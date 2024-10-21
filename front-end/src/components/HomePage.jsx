@@ -5,6 +5,7 @@ import HomeIcon from "@/components/icons/HomeIcon";
 import OrdersIcon from "@/components/icons/OrdersIcon";
 
 import { useEffect, useState } from "react";
+import CustomerIcon from "./icons/CustomerIcon";
 
 const HomePage = () => {
   const [datas, setDatas] = useState([]);
@@ -60,6 +61,7 @@ const HomePage = () => {
         />
         <div className="flex items-center gap-2 ">
           <HomeIcon />
+          <CustomerIcon />
           <AdminIcon />
           <OrdersIcon cards={cards} setCards={setCards} />
         </div>

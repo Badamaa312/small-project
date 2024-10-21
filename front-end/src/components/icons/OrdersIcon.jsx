@@ -80,8 +80,9 @@ const OrdersIcon = ({ cards, setCards }) => {
                     <p>Description: {card.description}</p>
                     <p>Price: {card.price}$</p>
                     <div className="flex items-center justify-center gap-[5px]">
+                      <p>quantity: </p>
                       <button onClick={() => handleDecrease(card.id)}>-</button>
-                      <p className="pl-6">{card.count}</p>
+                      <p className="pl-1">{card.count}</p>
                       <button onClick={() => handleIncrease(card.id)}>+</button>
                     </div>
                     <p>Total price each product: {card.price * card.count}$</p>

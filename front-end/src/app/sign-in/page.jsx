@@ -1,66 +1,45 @@
 "use client";
 
-import Card from "@/components/ProductCard";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const SignInPage = () => {
-  const [products, setProducts] = useState([]);
-
   const BACKEND_ENDPOINT = "http://localhost:5555/sign-in";
+  const [success, setSuccess] = useState(false);
+  const router = useRouter();
 
   const handleOnSubmit = async (event) => {
-    console.log(customer);
+    event.preventDefault();
 
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(`${BACKEND_ENDPOINT}/products`);
-        const responseData = await response.json();
-        setProducts(responseData?.data);
-      } catch (error) {
-        console.log(error);
-      }
+    const customer = (event) => {
+      name = event.target.name.value;
+      email = event.target.password.value;
     };
 
-    useEffect(() => {
-      fetchProducts();
-    }, []);
-    try {
-      event.preventDefault();
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(customer),
-      };
-      const response = await fetch(`${BACKEND_ENDPOINT}`, options);
-      const data = await response.json();
-    } catch {
-      console.log("error");
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(customer),
+    };
+    const response = await fetch(`${BACKEND_ENDPOINT}`, options);
+    const data = await response.json();
+    if (data.success) {
+      setSuccess(true);
+      router.push("./");
+    } else {
+      setSuccess(false);
+      alert("Not registered user");
     }
-
-    // LogIn hiij bui hesgiig hoosolj bn
-    setCustomer({
-      name: "",
-      email: "",
-    });
-    document.getElementById("my_modal_1").close();
   };
 
-  // input ni name bolon value-r tanih
+  const handleLogin = () => {
+    setSuccess(false);
+  };
 
-  // const handleInputChange = (event) => {
-  //   const name = event.target.name;
-  //   const value = event.target.value;
-
-  //   setCustomer((prevCustomer) => {
-  //     return {
-  //       ...prevCustomer,
-  //       [name]: value,
-  //     };
-  //   });
-  // };
+  useEffect(() => {}, [success]);
 
   return (
     <div className="flex w-full h-screen">
@@ -92,7 +71,11 @@ const SignInPage = () => {
                 placeholder="email"
                 className="input input-bordered text-[#A3A3A3] text-base w-full  border  border-[#D1D5DB] bg-[#F3F4F6]"
               />
-              <button className="btn btn-primary rounded-[20px] text-xl leading-7 text-white">
+              <button
+                onClick={handleLogin}
+                type="submit"
+                className="btn btn-primary rounded-[20px] text-xl leading-7 text-white"
+              >
                 Log in
               </button>
             </form>

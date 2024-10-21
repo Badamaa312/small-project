@@ -4,6 +4,8 @@ import { CreateCard } from "@/components/CreateCard";
 
 import { useState, useEffect } from "react";
 import { EditProduct } from "./Edit";
+import HomeIcon from "./icons/HomeIcon";
+import CustomerIcon from "./icons/CustomerIcon";
 
 const Header = () => {
   const BACKEND_ENDPOINT = "http://localhost:5555";
@@ -90,7 +92,9 @@ const Header = () => {
           className="w-[500px] h-[50px] border border-grey rounded-[10px] pl-4"
           type="text"
         />
-        <div>
+        <div className="flex gap-4">
+          <HomeIcon />
+          <CustomerIcon />
           <CreateCard setProducts={setProducts} />
         </div>
       </header>

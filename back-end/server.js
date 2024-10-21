@@ -25,6 +25,16 @@ app.get("/products", async (request, response) => {
   }
 });
 
+app.get("/order_items", async (request, response) => {
+  try {
+    const sqlResponse = await sql`SELECT * FROM order_items`;
+
+    response.json({ data: sqlResponse, success: true });
+  } catch (error) {
+    response.json({ error: error, success: false });
+  }
+});
+
 app.post("/product", async (request, response) => {
   const { name, description, price, image_url } = request.body;
 
@@ -56,6 +66,39 @@ app.post("/product", async (request, response) => {
     response
       .status(500)
       .json({ error: "Internal Server Error", details: error.message });
+  }
+});
+
+app.post("/order_items", async (request, response) => {
+  const { order_id, product_id, order_date, price, quantity, total_amount } =
+    request.body;
+
+  if (
+    !order_id ||
+    !product_id ||
+    !order_date ||
+    !price ||
+    !quantity ||
+    !total_amount
+  ) {
+    return response.status(400).json({ error: "All fields are required." });
+  }
+
+  if (isNaN(price) || price <= 0) {
+    return response
+      .status(400)
+      .json({ error: "Price must be a positive number." });
+  }
+
+  try {
+    const sqlResponse = await sql`
+      INSERT INTO order_items (order_id,product_id,order_date,   quantity, price, total_amount)
+      VALUES (${order_id}, ${product_id},  ${order_date},${quantity}, ${price}, ${total_amount})
+      RETURNING *;`;
+
+    response.json(sqlResponse);
+  } catch (error) {
+    console.error("Error adding order_item:", error);
   }
 });
 
@@ -175,83 +218,6 @@ app.put("/product/:id", async (request, response) => {
       .json({ error: "Internal Server Error", details: error.message });
   }
 });
-
-// edit-legdsen gants data butsaadag bolgoh like Delete
-
-// app.put("/product/:id", async (request, response) => {
-//   const { id } = request.id;
-//   const { id, name, description, price, image_url } = request.body;
-
-//   if (!name || !description || !price || !image_url) {
-//     return response.status(400).json({ error: "Please input explanation." });
-//   }
-
-//   if (isNaN(price) || price <= 0) {
-//     return response
-//       .status(400)
-//       .json({ error: "Price must be a positive number." });
-//   }
-
-//   try {
-//     const sqlResponse = await sql`
-//       UPDATE products SET name=${name} , description = ${description}, price= ${price}, image_url=${image_url})
-//      WHERE id=${id}
-//       RETURNING *;`;
-//     if (sqlResponse.length === 0) {
-//       return response.status(404).json({ error: "product not found" });
-//     }
-
-//     response.json(sqlResponse);
-//   } catch (error) {
-//     console.error("Error adding product:", error);
-//   }
-// });
-
-// app.put("/product", (request, response) => {
-//   const { id, name, description, price, image_url } = request.body;
-
-//   fs.readFile("./data/products.json", "utf-8", (readError, data) => {
-//     if (readError) {
-//       response.json({
-//         success: false,
-//         error: error,
-//       });
-//     }
-
-//     let dbData = data ? JSON.parse(data) : [];
-
-//     const editedData = dbData.map((data) => {
-//       if (data?.id === id) {
-//         return {
-//           id,
-//           name,
-//           description,
-//           price,
-//           image_url,
-//         };
-//       }
-//       return data;
-//     });
-
-//     fs.writeFile(
-//       "./data/products.json",
-//       JSON.stringify(editedData),
-//       (error) => {
-//         if (error) {
-//           response.json({
-//             success: false,
-//             error: error,
-//           });
-//         } else {
-//           response.json({
-//             success: true,
-//             products: editedData,
-//           });
-//         }
-//       }
-//     );
-//   });
-// });
 
 app.listen(port, () => {
   console.log(`Server ajillaj bn http://localhost:${port}`);
